@@ -1,0 +1,34 @@
+<svg width="960" height="280" viewBox="0 0 960 280" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="peakBlue" x1="188" y1="20" x2="585" y2="172" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#27C1FF"/>
+      <stop offset="0.45" stop-color="#0B71C4"/>
+      <stop offset="1" stop-color="#071C62"/>
+    </linearGradient>
+    <linearGradient id="peakOrange" x1="466" y1="101" x2="666" y2="164" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FF7A00"/>
+      <stop offset="1" stop-color="#FFB000"/>
+    </linearGradient>
+    <linearGradient id="wordBlue" x1="110" y1="185" x2="776" y2="246" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0C87D1"/>
+      <stop offset="0.45" stop-color="#1066BC"/>
+      <stop offset="1" stop-color="#0A3A8A"/>
+    </linearGradient>
+  </defs>
+
+  <path d="M188 153L335 65L371 87L476 20L592 89L629 65L792 153L624 103L573 164L486 73L409 164L311 116L235 151L188 153Z" fill="url(#peakBlue)"/>
+  <path d="M449 164L517 97L582 151L706 153L561 120L509 71L472 105L449 164Z" fill="url(#peakOrange)"/>
+  <path d="M776 173L808 163L792 184L769 187L776 173Z" fill="url(#peakOrange)"/>
+
+  <text
+    x="106"
+    y="246"
+    fill="url(#wordBlue)"
+    font-family="Arial, Helvetica, sans-serif"
+    font-size="86"
+    font-weight="900"
+    letter-spacing="2"
+  >
+    TRAVESIA
+  </text>
+</svg>

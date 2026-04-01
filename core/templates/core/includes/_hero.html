@@ -1,0 +1,109 @@
+{% load static %}
+<section class="hero hero-animate" id="top" data-parallax>
+    <div class="hero-media">
+        <picture>
+            <source
+                media="(max-width: 767px)"
+                srcset="{% static 'core/img/hero/hero-operacion-logistica-travesia-mobile.webp' %}"
+            >
+            <img
+                src="{% static 'core/img/hero/hero-operacion-logistica-travesia.webp' %}"
+                alt="Operación logística de TRAVESÍA con camión de carga pesada"
+                class="hero-background-image"
+                width="1280"
+                height="720"
+                fetchpriority="high"
+            >
+        </picture>
+    </div>
+    <div class="hero-overlay"></div>
+    <div class="hero-grid-lines"></div>
+    <div class="container hero-grid">
+        <div class="hero-content hero-copy motion-sequence">
+            <div class="hero-brand-lockup">
+                <img src="{% static 'core/img/logo-travesia.svg' %}" alt="TRAVESÍA" class="hero-logo">
+            </div>
+
+            <span class="eyebrow">Logística corporativa con ejecución seria</span>
+            <h1>Transporte y logística para operaciones que no pueden improvisar.</h1>
+            <p class="hero-text">
+                Coordinamos servicios nacionales e internacionales para empresas que necesitan
+                criterio operativo, cobertura real y una respuesta comercial seria frente a operaciones exigentes.
+            </p>
+
+            <div class="hero-actions">
+                <a
+                    href="https://wa.me/{{ whatsapp_number }}?text={{ whatsapp_text|urlencode }}"
+                    class="btn btn-primary"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    Hablar con un asesor
+                </a>
+                <a href="#servicios" class="btn btn-secondary">Ver servicios clave</a>
+            </div>
+
+            <div class="hero-trust hero-metrics">
+                <div class="trust-item metric-card js-tilt">
+                    <strong>Cobertura Chile</strong>
+                    <span>Arica a Punta Arenas</span>
+                </div>
+                <div class="trust-item metric-card js-tilt">
+                    <strong>Internacional</strong>
+                    <span>Argentina, Brasil, Paraguay y Bolivia próximamente</span>
+                </div>
+                <div class="trust-item metric-card js-tilt">
+                    <strong>Cargas complejas</strong>
+                    <span>Minería, refrigerado, peligrosa y sobredimensión</span>
+                </div>
+            </div>
+
+            <div class="hero-industries">
+                <span>Minería</span>
+                <span>Industria</span>
+                <span>Comercio exterior</span>
+                <span>Operaciones especiales</span>
+            </div>
+        </div>
+
+        <aside class="hero-card hero-panel motion-sequence motion-card js-tilt">
+            <div class="hero-panel-top">
+                <div class="card-badge panel-topline">Canal comercial</div>
+                <span class="hero-panel-status">Respuesta ágil</span>
+            </div>
+
+            <h2>Levantamos el requerimiento y proponemos una salida logística seria.</h2>
+            <p>
+                Revisamos ruta, tipo de carga, urgencia y restricciones operativas para responder
+                con una base comercial más clara desde el primer contacto.
+            </p>
+
+            <div class="panel-highlights">
+                <div class="js-tilt">
+                    <strong>Transporte nacional e internacional</strong>
+                    <span>Coordinación para rutas y operaciones corporativas.</span>
+                </div>
+                <div class="js-tilt">
+                    <strong>Especialidad operacional</strong>
+                    <span>Minería, refrigerado, peligrosas, sobredimensión y proyectos.</span>
+                </div>
+                <div class="js-tilt">
+                    <strong>Enfoque B2B</strong>
+                    <span>Comunicación clara, orden comercial y continuidad operacional.</span>
+                </div>
+            </div>
+
+            <div class="hero-panel-actions">
+                <a
+                    href="https://wa.me/{{ whatsapp_number }}?text={{ whatsapp_text|urlencode }}"
+                    class="btn btn-primary"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    Abrir canal comercial
+                </a>
+                <a href="#contacto" class="panel-link">Completar formulario comercial</a>
+            </div>
+        </aside>
+    </div>
+</section>

@@ -1,0 +1,67 @@
+{% load static %}
+<header class="site-header" id="siteHeader">
+    <div class="header-utility">
+        <div class="container header-utility-inner">
+            <div class="header-utility-copy">
+                <span>Operación B2B</span>
+                <span>Chile y Sudamérica</span>
+                <span>Cargas complejas</span>
+            </div>
+            <a
+                href="https://wa.me/{{ whatsapp_number }}?text={{ whatsapp_text|urlencode }}"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                Canal comercial directo
+            </a>
+        </div>
+    </div>
+
+    <div class="container header-inner">
+        <a href="{% url 'core:home' %}" class="brand" aria-label="Ir al inicio">
+            <img
+                src="{% static 'core/img/logo-travesia.svg' %}"
+                alt="TRAVESÍA"
+                class="brand-logo"
+            >
+            <span class="brand-copy">
+                <small>Transporte y Logística</small>
+            </span>
+        </a>
+
+        <button
+            type="button"
+            class="nav-toggle"
+            id="navToggle"
+            aria-label="Abrir menú"
+            aria-expanded="false"
+            aria-controls="navPanel"
+        >
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </button>
+
+        <div class="nav-panel" id="navPanel">
+            <nav class="main-nav" id="mainNav" aria-label="Principal">
+                <div class="main-nav-links">
+                    <a href="{% url 'core:home' %}" class="nav-link">Inicio</a>
+                    <a href="{% url 'core:about' %}" class="nav-link">Nosotros</a>
+                    <a href="{% url 'core:services' %}" class="nav-link">Servicios</a>
+                    <a href="{% url 'core:contact' %}" class="nav-link">Contacto</a>
+                </div>
+
+                <div class="main-nav-actions">
+                    <a
+                        href="https://wa.me/{{ whatsapp_number }}?text={{ whatsapp_text|urlencode }}"
+                        class="btn btn-primary nav-cta"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        Cotizar por WhatsApp
+                    </a>
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>

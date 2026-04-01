@@ -1,0 +1,117 @@
+<section class="section section-light reveal" id="contacto">
+    <div class="container contact-grid">
+        <div class="contact-copy reveal">
+            <span class="eyebrow">Formulario comercial</span>
+            <h2>Solicita una evaluación preliminar de tu requerimiento.</h2>
+            <p>
+                Este formulario abre un mensaje estructurado en WhatsApp con los datos clave de tu solicitud,
+                lo que mejora la calidad del lead y acelera la respuesta comercial.
+            </p>
+
+            <div class="contact-info-card contact-card reveal-card js-tilt">
+                <h3>Canal principal</h3>
+                <p>Atención comercial vía WhatsApp para consultas, evaluación inicial y coordinación de requerimientos.</p>
+                <ul class="contact-points">
+                    <li>Levantamiento rápido de carga y ruta</li>
+                    <li>Canal directo para clientes corporativos</li>
+                    <li>Enfoque en continuidad operacional</li>
+                </ul>
+                <a
+                    href="https://wa.me/{{ whatsapp_number }}?text={{ whatsapp_text|urlencode }}"
+                    class="text-link"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    Abrir WhatsApp
+                </a>
+            </div>
+        </div>
+
+        <div class="contact-form-card reveal-card js-tilt">
+            <form id="leadForm" class="contact-form" data-whatsapp-number="{{ whatsapp_number }}" novalidate>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="name">Nombre</label>
+                        <input type="text" id="name" name="name" placeholder="Nombre y apellido" autocomplete="name" required>
+                        <small class="form-error" data-error-for="name"></small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="company">Empresa</label>
+                        <input type="text" id="company" name="company" placeholder="Nombre de la empresa" autocomplete="organization" required>
+                        <small class="form-error" data-error-for="company"></small>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="phone">Teléfono</label>
+                        <input type="tel" id="phone" name="phone" placeholder="+56 9 1234 5678" inputmode="tel" autocomplete="tel" required>
+                        <small class="form-error" data-error-for="phone"></small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Correo</label>
+                        <input type="email" id="email" name="email" placeholder="contacto@empresa.cl" autocomplete="email" required>
+                        <small class="form-error" data-error-for="email"></small>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="service">Servicio</label>
+                        <select id="service" name="service" required>
+                            <option value="">Selecciona un servicio</option>
+                            <option>Transporte nacional e internacional</option>
+                            <option>Logística minera</option>
+                            <option>Asesoría en comercio exterior</option>
+                            <option>Cargas especiales</option>
+                            <option>Cargas refrigeradas</option>
+                            <option>Carga peligrosa</option>
+                            <option>Sobredimensión</option>
+                            <option>Proyecto logístico</option>
+                        </select>
+                        <small class="form-error" data-error-for="service"></small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="route">Ruta o tramo</label>
+                        <input
+                            type="text"
+                            id="route"
+                            name="route"
+                            list="routeSuggestions"
+                            placeholder="Selecciona o escribe una ruta"
+                            autocomplete="off"
+                            inputmode="text"
+                            required
+                        >
+                        <datalist id="routeSuggestions">
+                            <option value="Santiago - Antofagasta"></option>
+                            <option value="Santiago - Iquique"></option>
+                            <option value="Santiago - Concepción"></option>
+                            <option value="Santiago - Puerto Montt"></option>
+                            <option value="Antofagasta - Calama"></option>
+                            <option value="Antofagasta - Mejillones"></option>
+                            <option value="Calama - Faena minera"></option>
+                            <option value="Puerto - Bodega"></option>
+                            <option value="Bodega - Faena"></option>
+                            <option value="Origen por definir - Destino por definir"></option>
+                        </datalist>
+                        <small class="form-error" data-error-for="route"></small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="message">Detalle del requerimiento</label>
+                    <textarea id="message" name="message" rows="6" placeholder="Tipo de carga, urgencia, restricciones, volumen o cualquier dato relevante" required></textarea>
+                    <small class="form-error" data-error-for="message"></small>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-full">Enviar solicitud</button>
+                <p class="form-note">Al enviar, se abrirá WhatsApp con el mensaje prellenado.</p>
+                <p class="form-status" id="formStatus" aria-live="polite"></p>
+            </form>
+        </div>
+    </div>
+</section>

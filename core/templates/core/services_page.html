@@ -1,0 +1,74 @@
+{% extends "core/base.html" %}
+{% load static %}
+
+{% block title %}Servicios | TRAVESÍA{% endblock %}
+{% block meta_description %}Revisa los servicios de TRAVESÍA: transporte nacional e internacional, logística minera, cargas especiales, refrigeradas, peligrosas, sobredimensión y proyectos logísticos.{% endblock %}
+{% block og_title %}Servicios | TRAVESÍA{% endblock %}
+{% block og_description %}Transporte nacional e internacional, logística minera, cargas especiales, sobredimensión y proyectos logísticos para empresas en Chile y Sudamérica.{% endblock %}
+{% block og_image %}{{ request.scheme }}://{{ request.get_host }}{% static 'core/img/pages/servicios/servicios-transporte-especializado-travesia.jpeg' %}{% endblock %}
+{% block twitter_image %}{{ request.scheme }}://{{ request.get_host }}{% static 'core/img/pages/servicios/servicios-transporte-especializado-travesia.jpeg' %}{% endblock %}
+
+{% block content %}
+{% include "core/includes/_internal_hero.html" with eyebrow="Servicios" title="Soluciones logísticas para operaciones que exigen orden, seguridad y continuidad." description="TRAVESÍA entrega servicios orientados a clientes corporativos que necesitan transporte y logística con respaldo operativo, claridad comercial y capacidad de respuesta." secondary_href="/contacto/" secondary_label="Solicitar evaluación" hero_image="core/img/pages/servicios/servicios-transporte-especializado-travesia.webp" hero_image_alt="Transporte especializado de TRAVESÍA" %}
+
+<section class="section section-light reveal">
+    <div class="container services-detail-grid">
+        <article class="detail-card reveal-card js-tilt">
+            <h2>Transporte nacional e internacional</h2>
+            <p>Coordinación de rutas dentro de Chile y hacia Sudamérica para operaciones corporativas.</p>
+        </article>
+        <article class="detail-card reveal-card js-tilt">
+            <h2>Logística minera</h2>
+            <p>Servicios para entornos industriales con mayores exigencias de planificación y continuidad.</p>
+        </article>
+        <article class="detail-card reveal-card js-tilt">
+            <h2>Comercio exterior</h2>
+            <p>Apoyo logístico para importación y exportación asociado al movimiento de carga.</p>
+        </article>
+        <article class="detail-card reveal-card js-tilt">
+            <h2>Cargas especiales</h2>
+            <p>Evaluación previa de requerimientos complejos para definir una salida operativa viable.</p>
+        </article>
+        <article class="detail-card reveal-card js-tilt">
+            <h2>Cargas refrigeradas</h2>
+            <p>Transporte para servicios donde el control de condición es parte del cumplimiento.</p>
+        </article>
+        <article class="detail-card reveal-card js-tilt">
+            <h2>Carga peligrosa y sobredimensión</h2>
+            <p>Servicios con foco en normativa, seguridad, ruta y criterios específicos de operación.</p>
+        </article>
+    </div>
+</section>
+
+<section class="section section-dark reveal">
+    <div class="container process-grid">
+        <div class="process-copy reveal">
+            <span class="eyebrow eyebrow-light">Cómo trabajamos</span>
+            <h2>Primero entendemos el requerimiento. Después proponemos la solución.</h2>
+            <p>
+                Nuestro foco no está en responder rápido a cualquier costo, sino en responder con
+                información útil para que el cliente avance con criterio.
+            </p>
+        </div>
+        <div class="process-steps">
+            <article class="process-step reveal-card js-tilt">
+                <strong>01</strong>
+                <h3>Diagnóstico</h3>
+                <p>Levantamos tipo de carga, ruta, urgencia y restricciones.</p>
+            </article>
+            <article class="process-step reveal-card js-tilt">
+                <strong>02</strong>
+                <h3>Diseño</h3>
+                <p>Definimos una alternativa acorde al contexto operativo del servicio.</p>
+            </article>
+            <article class="process-step reveal-card js-tilt">
+                <strong>03</strong>
+                <h3>Coordinación</h3>
+                <p>Articulamos la solución con foco en continuidad y respaldo comercial.</p>
+            </article>
+        </div>
+    </div>
+</section>
+
+{% include "core/includes/_cta.html" %}
+{% endblock %}

@@ -1,0 +1,56 @@
+{% load static %}
+<footer class="site-footer">
+    <div class="container footer-inner">
+        <div class="footer-brand">
+            <img
+                src="{% static 'core/img/logo-travesia.svg' %}"
+                alt="TRAVESÍA"
+                class="footer-logo"
+            >
+            <p>
+                Transporte y logística para empresas que necesitan respuesta,
+                coordinación y criterio operacional en rutas nacionales e internacionales.
+            </p>
+        </div>
+
+        <div>
+            <h4>Servicios</h4>
+            <ul>
+                <li><a href="{% url 'core:home' %}#servicios">Transporte nacional e internacional</a></li>
+                <li><a href="{% url 'core:home' %}#servicios">Logística minera</a></li>
+                <li><a href="{% url 'core:home' %}#servicios">Cargas especiales</a></li>
+                <li><a href="{% url 'core:home' %}#servicios">Proyectos logísticos</a></li>
+            </ul>
+        </div>
+
+        <div>
+            <h4>Navegación</h4>
+            <ul>
+                <li><a href="{% url 'core:home' %}#operaciones">Cómo operamos</a></li>
+                <li><a href="{% url 'core:home' %}#cobertura">Cobertura</a></li>
+                <li><a href="{% url 'core:home' %}#nosotros">Por qué elegirnos</a></li>
+                <li><a href="{% url 'core:home' %}#contacto">Formulario comercial</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-contact">
+            <h4>Contacto comercial</h4>
+            <p>Atención por WhatsApp para evaluación de rutas, cargas y requerimientos corporativos.</p>
+            <a
+                href="https://wa.me/{{ whatsapp_number }}?text={{ whatsapp_text|urlencode }}"
+                class="footer-contact-link"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                Abrir canal comercial
+            </a>
+        </div>
+    </div>
+
+    <div class="footer-bottom">
+        <div class="container footer-bottom-inner">
+            <p>© {% now "Y" %} TRAVESÍA. Todos los derechos reservados.</p>
+            <p>Transporte corporativo | Chile y Sudamérica</p>
+        </div>
+    </div>
+</footer>

@@ -1,0 +1,158 @@
+{% load static %}
+
+<section class="section section-light operations-section reveal" id="operaciones">
+    <div class="container">
+        <div class="section-heading-layout operations-heading reveal">
+            <div class="section-heading section-heading-compact">
+                <span class="eyebrow">Operaciones realizadas</span>
+                <h2>Experiencia aplicada en terreno, rutas y operaciones que exigen ejecución seria.</h2>
+                <p>
+                    Una muestra visual más acotada y mejor jerarquizada para reforzar experiencia real sin
+                    convertir la landing en una galería. El detalle completo queda en la página institucional.
+                </p>
+            </div>
+
+            <div class="section-actions">
+                <a href="{% url 'core:about' %}#galeria" class="btn btn-secondary">Ver más operaciones</a>
+            </div>
+        </div>
+
+        <div class="operations-grid">
+            <article class="operation-card operation-card-featured reveal-card js-tilt">
+                <img
+                    src="{% static 'core/img/operations/mineria-operacion-logistica-travesia.webp' %}"
+                    alt="Operación logística en minería"
+                    class="operation-card-image"
+                    width="1280"
+                    height="960"
+                    loading="lazy"
+                    decoding="async"
+                >
+                <div class="operation-card-overlay">
+                    <span class="operation-card-kicker">Minería</span>
+                    <h3>Operaciones para entornos de alta exigencia</h3>
+                    <p>Servicios vinculados a continuidad operacional, coordinación y carga crítica.</p>
+                </div>
+            </article>
+
+            <article class="operation-card reveal-card js-tilt">
+                <img
+                    src="{% static 'core/img/operations/transporte-maquinaria-pesada-travesia.webp' %}"
+                    alt="Transporte de maquinaria pesada"
+                    class="operation-card-image"
+                    width="1280"
+                    height="720"
+                    loading="lazy"
+                    decoding="async"
+                >
+                <div class="operation-card-overlay">
+                    <span class="operation-card-kicker">Transporte especializado</span>
+                    <h3>Movimiento de maquinaria y equipos</h3>
+                    <p>Operaciones con evaluación previa de ruta, maniobra y condiciones del servicio.</p>
+                </div>
+            </article>
+
+            <article class="operation-card reveal-card js-tilt">
+                <img
+                    src="{% static 'core/img/operations/construccion-operacion-logistica-travesia.webp' %}"
+                    alt="Operación logística vinculada a construcción"
+                    class="operation-card-image"
+                    width="1280"
+                    height="720"
+                    loading="lazy"
+                    decoding="async"
+                >
+                <div class="operation-card-overlay">
+                    <span class="operation-card-kicker">Construcción</span>
+                    <h3>Soporte logístico para obras y faenas</h3>
+                    <p>Transporte y coordinación para proyectos con exigencia de cumplimiento operacional.</p>
+                </div>
+            </article>
+
+            <article class="operation-card operation-card-border operation-card-libertadores reveal-card js-tilt">
+                <img
+                    src="{% static 'core/img/operations/paso-los-libertadores-travesia.webp' %}"
+                    alt="Ruta internacional por Paso Los Libertadores"
+                    class="operation-card-image"
+                    width="1024"
+                    height="1536"
+                    loading="lazy"
+                    decoding="async"
+                >
+                <div class="operation-card-overlay">
+                    <span class="operation-card-kicker">Paso fronterizo</span>
+                    <h3>Ruta principal por Los Libertadores</h3>
+                    <p>Corredor clave para la conexión Chile - Argentina y una de las rutas más relevantes de la operación internacional.</p>
+                </div>
+            </article>
+
+            <article class="operation-card reveal-card js-tilt">
+                <img
+                    src="{% static 'core/img/operations/camion-plataforma-logistica-travesia.webp' %}"
+                    alt="Camión con plataforma en operación logística"
+                    class="operation-card-image"
+                    width="1280"
+                    height="960"
+                    loading="lazy"
+                    decoding="async"
+                >
+                <div class="operation-card-overlay">
+                    <span class="operation-card-kicker">Plataformas</span>
+                    <h3>Servicios para equipos y carga técnica</h3>
+                    <p>Operaciones que requieren orden, capacidad de adaptación y control del servicio.</p>
+                </div>
+            </article>
+
+            <article class="operation-card reveal-card js-tilt">
+                <img
+                    src="{% static 'core/img/operations/transporte-urbano-pesado-travesia.webp' %}"
+                    alt="Transporte urbano de carga pesada"
+                    class="operation-card-image"
+                    width="1073"
+                    height="1021"
+                    loading="lazy"
+                    decoding="async"
+                >
+                <div class="operation-card-overlay">
+                    <span class="operation-card-kicker">Transporte pesado</span>
+                    <h3>Operación urbana especializada</h3>
+                    <p>Servicios para contextos de ruta, maniobra y coordinación más sensibles.</p>
+                </div>
+            </article>
+
+            <article class="operation-card reveal-card js-tilt">
+                <img
+                    src="{% static 'core/img/operations/carga-sobredimensionada-travesia.webp' %}"
+                    alt="Carga sobredimensionada en operación logística"
+                    class="operation-card-image"
+                    width="1280"
+                    height="720"
+                    loading="lazy"
+                    decoding="async"
+                >
+                <div class="operation-card-overlay">
+                    <span class="operation-card-kicker">Sobredimensión</span>
+                    <h3>Cargas fuera de estándar</h3>
+                    <p>Operaciones que requieren planificación especial, control del servicio y lectura precisa de restricciones.</p>
+                </div>
+            </article>
+
+            <article class="operation-card reveal-card js-tilt">
+                <img
+                    src="{% static 'core/img/operations/comercio-exterior-travesia.webp' %}"
+                    alt="Operación vinculada a comercio exterior y carga internacional"
+                    class="operation-card-image"
+                    width="1280"
+                    height="720"
+                    loading="lazy"
+                    decoding="async"
+                >
+                <div class="operation-card-overlay">
+                    <span class="operation-card-kicker">Comercio exterior</span>
+                    <h3>Conexión logística para carga internacional</h3>
+                    <p>Apoyo visual para operaciones de enlace portuario, coordinación documental y continuidad entre mercados.</p>
+                </div>
+            </article>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,82 @@
+<section class="section section-light reveal" id="servicios">
+    <div class="container">
+        <div class="section-heading-layout reveal">
+            <div class="section-heading">
+                <span class="eyebrow">Servicios</span>
+                <h2>Capacidad logística para operaciones donde el orden y la ejecución sí importan.</h2>
+                <p>
+                    La home concentra las líneas de servicio más críticas. El portafolio completo queda en la
+                    página de servicios para mantener una lectura más clara, más ejecutiva y menos cargada.
+                </p>
+            </div>
+
+            <div class="section-actions">
+                <a href="{% url 'core:services' %}" class="btn btn-secondary">Ver todos los servicios</a>
+                <a
+                    href="https://wa.me/{{ whatsapp_number }}?text={{ whatsapp_text|urlencode }}"
+                    class="btn btn-primary"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    Solicitar evaluación
+                </a>
+            </div>
+        </div>
+
+        <div class="services-grid services-grid-home">
+            <article class="service-card reveal-card js-tilt">
+                <div class="service-card-top">
+                    <div class="service-icon">01</div>
+                    <div class="service-meta">Chile y Sudamérica</div>
+                </div>
+                <h3>Transporte nacional e internacional</h3>
+                <p>Coordinación de rutas y operaciones corporativas con continuidad operacional y respuesta seria.</p>
+            </article>
+
+            <article class="service-card reveal-card js-tilt">
+                <div class="service-card-top">
+                    <div class="service-icon">02</div>
+                    <div class="service-meta">Entornos críticos</div>
+                </div>
+                <h3>Logística minera</h3>
+                <p>Gestión de cargas para contextos industriales y mineros con mayores exigencias de coordinación.</p>
+            </article>
+
+            <article class="service-card reveal-card js-tilt">
+                <div class="service-card-top">
+                    <div class="service-icon">03</div>
+                    <div class="service-meta">Evaluación previa</div>
+                </div>
+                <h3>Cargas especiales</h3>
+                <p>Requerimientos que necesitan lectura operativa previa, control del servicio y criterio técnico.</p>
+            </article>
+
+            <article class="service-card reveal-card js-tilt">
+                <div class="service-card-top">
+                    <div class="service-icon">04</div>
+                    <div class="service-meta">Rutas especiales</div>
+                </div>
+                <h3>Sobredimensión</h3>
+                <p>Planificación de trayectos, restricciones y maniobras para cargas fuera de estándar.</p>
+            </article>
+
+            <article class="service-card reveal-card js-tilt">
+                <div class="service-card-top">
+                    <div class="service-icon">05</div>
+                    <div class="service-meta">Seguridad y normativa</div>
+                </div>
+                <h3>Carga peligrosa</h3>
+                <p>Operaciones con atención a seguridad, normativa, ruta y condiciones específicas de transporte.</p>
+            </article>
+
+            <article class="service-card reveal-card js-tilt">
+                <div class="service-card-top">
+                    <div class="service-icon">06</div>
+                    <div class="service-meta">Diseño operativo</div>
+                </div>
+                <h3>Proyectos logísticos</h3>
+                <p>Planificación integral para operaciones complejas, equipos especiales y servicios a medida.</p>
+            </article>
+        </div>
+    </div>
+</section>

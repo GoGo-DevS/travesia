@@ -1,0 +1,165 @@
+{% extends "core/base.html" %}
+{% load static %}
+
+{% block title %}Nosotros | TRAVESÍA{% endblock %}
+{% block meta_description %}Conoce a TRAVESÍA, empresa de transporte y logística para clientes B2B en Chile y Sudamérica, con foco en operaciones serias, seguridad, continuidad y criterio operacional.{% endblock %}
+{% block og_title %}Nosotros | TRAVESÍA{% endblock %}
+{% block og_description %}Conoce el enfoque de trabajo de TRAVESÍA, orientado a clientes B2B que requieren coordinación seria, cobertura real y criterio operacional.{% endblock %}
+{% block og_image %}{{ request.scheme }}://{{ request.get_host }}{% static 'core/img/pages/nosotros/nosotros-operacion-logistica-travesia.jpeg' %}{% endblock %}
+{% block twitter_image %}{{ request.scheme }}://{{ request.get_host }}{% static 'core/img/pages/nosotros/nosotros-operacion-logistica-travesia.jpeg' %}{% endblock %}
+
+{% block content %}
+{% include "core/includes/_internal_hero.html" with eyebrow="Nosotros" title="Una empresa seria se nota en cómo entiende, coordina y responde a una operación." description="TRAVESÍA trabaja con enfoque B2B para empresas que necesitan transporte y logística con respaldo comercial, criterio operativo y una comunicación clara desde el primer contacto." secondary_href="/contacto/" secondary_label="Hablar con un asesor" hero_image="core/img/pages/nosotros/nosotros-operacion-logistica-travesia.webp" hero_image_alt="Operación logística real de TRAVESÍA" %}
+
+<section class="section section-light reveal">
+    <div class="container split-section">
+        <div class="section-heading section-heading-compact reveal">
+            <span class="eyebrow">Quiénes somos</span>
+            <h2>Transporte y logística con una mirada corporativa, sobria y orientada a la operación.</h2>
+            <p>
+                TRAVESÍA es una empresa enfocada en clientes B2B que necesitan un partner serio para coordinar
+                transporte, evaluar requerimientos y responder con una solución logística coherente con la realidad
+                operativa de su negocio.
+            </p>
+        </div>
+
+        <div class="info-panel reveal-card js-tilt">
+            <p>
+                Más que mover carga, buscamos entender el contexto del servicio, levantar correctamente el
+                requerimiento y proponer una alternativa que tenga sentido para la operación del cliente.
+            </p>
+            <p>
+                Esa forma de trabajo nos permite mantener un tono profesional, una respuesta comercial útil
+                y una ejecución alineada con la continuidad operacional que exige el mundo corporativo.
+            </p>
+        </div>
+    </div>
+</section>
+
+<section class="section section-muted reveal">
+    <div class="container">
+        <div class="section-heading section-heading-compact reveal">
+            <span class="eyebrow">Enfoque de trabajo</span>
+            <h2>No partimos prometiendo. Partimos entendiendo el requerimiento.</h2>
+            <p>
+                Nuestro enfoque combina orden comercial, lectura operativa y capacidad de coordinación para
+                responder con criterio en servicios nacionales e internacionales.
+            </p>
+        </div>
+
+        <div class="feature-band">
+            <article class="feature-panel reveal-card js-tilt">
+                <span class="assurance-index">01</span>
+                <h3>Levantamiento serio</h3>
+                <p>Recopilamos información relevante sobre carga, ruta, plazos y restricciones antes de proponer una alternativa.</p>
+            </article>
+            <article class="feature-panel reveal-card js-tilt">
+                <span class="assurance-index">02</span>
+                <h3>Evaluación responsable</h3>
+                <p>Analizamos viabilidad operacional, criticidad del servicio y necesidades específicas del cliente.</p>
+            </article>
+            <article class="feature-panel reveal-card js-tilt">
+                <span class="assurance-index">03</span>
+                <h3>Coordinación clara</h3>
+                <p>Trabajamos con una comunicación directa y útil para que el cliente pueda avanzar con seguridad.</p>
+            </article>
+        </div>
+    </div>
+</section>
+
+<section class="section section-light reveal">
+    <div class="container">
+        <div class="section-heading section-heading-compact reveal">
+            <span class="eyebrow">Compromiso</span>
+            <h2>Seguridad, orden y continuidad como base de cada servicio.</h2>
+            <p>
+                En logística, la confianza se construye cuando la evaluación es responsable y la operación se aborda
+                con seriedad. Ese es el estándar con el que trabajamos.
+            </p>
+        </div>
+
+        <div class="feature-band">
+            <article class="feature-panel reveal-card js-tilt">
+                <span class="assurance-index">01</span>
+                <h3>Compromiso con seguridad</h3>
+                <p>Tratamos cada requerimiento con foco en condiciones operativas, resguardo del servicio y criterios de ejecución responsables.</p>
+            </article>
+            <article class="feature-panel reveal-card js-tilt">
+                <span class="assurance-index">02</span>
+                <h3>Compromiso con la operación</h3>
+                <p>Entendemos que una mala coordinación impacta al negocio. Por eso priorizamos claridad, orden y continuidad.</p>
+            </article>
+            <article class="feature-panel reveal-card js-tilt">
+                <span class="assurance-index">03</span>
+                <h3>Compromiso con la respuesta</h3>
+                <p>Buscamos entregar respuestas comerciales mejor estructuradas, más útiles y alineadas con el contexto real del cliente.</p>
+            </article>
+        </div>
+    </div>
+</section>
+
+<section class="section section-dark reveal">
+    <div class="container coverage-summary">
+        <div class="process-copy">
+            <span class="eyebrow eyebrow-light">Cobertura</span>
+            <h2>Operación nacional e internacional con foco en continuidad y coordinación.</h2>
+            <p>
+                Atendemos operaciones en todo Chile y conectamos con Sudamérica para requerimientos que
+                necesitan una ejecución seria, especialmente en cargas especiales, logística minera,
+                comercio exterior y servicios con múltiples variables.
+            </p>
+        </div>
+
+        <div class="coverage-summary-panel">
+            <div class="coverage-summary-block reveal-card js-tilt">
+                <strong>Chile</strong>
+                <p>Arica a Punta Arenas, con soporte para operaciones a lo largo del país.</p>
+            </div>
+            <div class="coverage-summary-block reveal-card js-tilt">
+                <strong>Internacional</strong>
+                <p>Argentina, Brasil, Paraguay y Bolivia próximamente como parte de la expansión regional.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% include "core/includes/_gallery.html" %}
+
+<section class="section section-muted reveal">
+    <div class="container">
+        <div class="section-heading section-heading-compact reveal">
+            <span class="eyebrow">Por qué elegirnos</span>
+            <h2>Razones concretas para trabajar con un partner logístico serio.</h2>
+            <p>
+                Cuando una empresa busca apoyo logístico, no necesita discurso. Necesita orden, lectura
+                operativa y una respuesta comercial que ayude a tomar decisiones.
+            </p>
+        </div>
+
+        <div class="assurance-grid">
+            <article class="assurance-card reveal-card js-tilt">
+                <span class="assurance-index">01</span>
+                <h3>Enfoque B2B real</h3>
+                <p>Hablamos en términos de operación, requerimientos y continuidad, no desde frases genéricas.</p>
+            </article>
+            <article class="assurance-card reveal-card js-tilt">
+                <span class="assurance-index">02</span>
+                <h3>Criterio antes que improvisación</h3>
+                <p>Buscamos entender el servicio antes de responder, especialmente en operaciones exigentes o complejas.</p>
+            </article>
+            <article class="assurance-card reveal-card js-tilt">
+                <span class="assurance-index">03</span>
+                <h3>Cobertura útil</h3>
+                <p>Chile completo y conexión con Sudamérica para operaciones nacionales e internacionales.</p>
+            </article>
+            <article class="assurance-card reveal-card js-tilt">
+                <span class="assurance-index">04</span>
+                <h3>Respuesta comercial sólida</h3>
+                <p>Trabajamos para que el primer contacto ya entregue contexto, claridad y una base seria de evaluación.</p>
+            </article>
+        </div>
+    </div>
+</section>
+
+{% include "core/includes/_page_cta.html" with cta_title="Si tu operación necesita un partner logístico serio, conversemos." cta_text="Escríbenos por WhatsApp o pasa a contacto para levantar tu requerimiento con una base comercial clara y útil." %}
+{% endblock %}

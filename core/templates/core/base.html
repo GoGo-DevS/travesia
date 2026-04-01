@@ -1,0 +1,90 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    {% static 'core/img/logo-travesia.svg' as default_og_image %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{% block title %}TRAVESÍA | Transporte y Logística para Empresas en Chile y Sudamérica{% endblock %}</title>
+    <meta name="description" content="{% block meta_description %}TRAVESÍA ofrece transporte y logística para empresas en Chile y Sudamérica, con foco en transporte nacional e internacional, cargas especiales, logística minera y comercio exterior.{% endblock %}">
+    <meta name="robots" content="{% block meta_robots %}index, follow{% endblock %}">
+    <meta name="theme-color" content="#0d356f">
+    <meta name="format-detection" content="telephone=no">
+
+    <link rel="canonical" href="{% block canonical_url %}{{ request.build_absolute_uri }}{% endblock %}">
+    <link rel="icon" type="image/png" href="{% static 'core/img/favicon.png' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'core/css/styles.css' %}">
+
+    <meta property="og:locale" content="es_CL">
+    <meta property="og:type" content="{% block og_type %}website{% endblock %}">
+    <meta property="og:site_name" content="TRAVESÍA">
+    <meta property="og:title" content="{% block og_title %}{% block title_og_fallback %}TRAVESÍA | Transporte y Logística para Empresas en Chile y Sudamérica{% endblock %}{% endblock %}">
+    <meta property="og:description" content="{% block og_description %}{% block og_description_fallback %}TRAVESÍA ofrece transporte nacional e internacional, cargas especiales, logística minera y soporte para comercio exterior en Chile y Sudamérica.{% endblock %}{% endblock %}">
+    <meta property="og:url" content="{% block og_url %}{{ request.build_absolute_uri }}{% endblock %}">
+    <meta property="og:image" content="{% block og_image %}{{ request.scheme }}://{{ request.get_host }}{{ default_og_image }}{% endblock %}">
+    <meta property="og:image:alt" content="{% block og_image_alt %}Logo de TRAVESÍA, empresa de transporte y logística corporativa{% endblock %}">
+
+    <meta name="twitter:card" content="{% block twitter_card %}summary_large_image{% endblock %}">
+    <meta name="twitter:title" content="{% block twitter_title %}{% block title_twitter_fallback %}TRAVESÍA | Transporte y Logística para Empresas en Chile y Sudamérica{% endblock %}{% endblock %}">
+    <meta name="twitter:description" content="{% block twitter_description %}{% block twitter_description_fallback %}Transporte nacional e internacional, cargas especiales, logística minera y comercio exterior para empresas.{% endblock %}{% endblock %}">
+    <meta name="twitter:image" content="{% block twitter_image %}{{ request.scheme }}://{{ request.get_host }}{{ default_og_image }}{% endblock %}">
+
+    {% block extra_head %}{% endblock %}
+
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "Organization",
+            "name": "TRAVESÍA",
+            "url": "{{ request.scheme }}://{{ request.get_host }}",
+            "logo": "{{ request.scheme }}://{{ request.get_host }}{{ default_og_image }}",
+            "description": "Empresa de transporte y logística para clientes B2B en Chile y Sudamérica.",
+            "areaServed": [
+                "Chile",
+                "Argentina",
+                "Brasil",
+                "Paraguay",
+                "Bolivia"
+            ],
+            "sameAs": [],
+            "contactPoint": [
+                {
+                    "@type": "ContactPoint",
+                    "contactType": "sales",
+                    "availableLanguage": ["es"],
+                    "telephone": "+{{ whatsapp_number|default:'56923763329' }}"
+                }
+            ]
+        }
+    </script>
+</head>
+<body>
+    <a href="#contenido" class="skip-link">Saltar al contenido</a>
+
+    {% include "core/includes/_navbar.html" %}
+
+    <main id="contenido">
+        {% block content %}{% endblock %}
+    </main>
+
+    {% include "core/includes/_footer.html" %}
+
+    <a
+        href="https://wa.me/{{ whatsapp_number }}?text={{ whatsapp_text|urlencode }}"
+        class="whatsapp-float"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Abrir canal comercial por WhatsApp"
+    >
+        <span>WhatsApp</span>
+    </a>
+
+    <script src="{% static 'core/js/main.js' %}"></script>
+    {% block extra_scripts %}{% endblock %}
+</body>
+</html>

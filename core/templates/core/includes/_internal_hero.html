@@ -1,0 +1,36 @@
+{% load static %}
+<section class="page-hero hero-animate" data-parallax>
+    {% if hero_image %}
+        {% static hero_image as hero_image_url %}
+        <div class="page-hero-media">
+            <img
+                src="{{ hero_image_url }}"
+                alt="{{ hero_image_alt|default:title }}"
+                class="page-hero-image"
+                width="1280"
+                height="720"
+                fetchpriority="high"
+            >
+        </div>
+    {% endif %}
+    <div class="page-hero-overlay"></div>
+    <div class="container page-hero-inner motion-sequence">
+        <span class="eyebrow eyebrow-light">{{ eyebrow }}</span>
+        <h1>{{ title }}</h1>
+        <p>{{ description }}</p>
+
+        <div class="page-hero-actions">
+            <a
+                href="https://wa.me/{{ whatsapp_number }}?text={{ whatsapp_text|urlencode }}"
+                class="btn btn-primary"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                Hablar por WhatsApp
+            </a>
+            {% if secondary_href and secondary_label %}
+                <a href="{{ secondary_href }}" class="btn btn-secondary">{{ secondary_label }}</a>
+            {% endif %}
+        </div>
+    </div>
+</section>

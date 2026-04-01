@@ -1,0 +1,23 @@
+<section class="section cta-section">
+    <div class="container cta-box">
+        <div class="cta-copy">
+            <span class="eyebrow">Contacto comercial</span>
+            <h2>{{ cta_title|default:"Si tu operación requiere orden y respuesta, conversemos." }}</h2>
+            <p>
+                {{ cta_text|default:"Escríbenos por WhatsApp y levantemos tu requerimiento con foco en ruta, carga y viabilidad operativa." }}
+            </p>
+
+            <div class="cta-actions">
+                <a
+                    href="https://wa.me/{{ whatsapp_number }}?text={{ whatsapp_text|urlencode }}"
+                    class="btn btn-primary"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    Abrir canal comercial
+                </a>
+                <a href="{% url 'core:contact' %}" class="btn btn-secondary">Ir a contacto</a>
+            </div>
+        </div>
+    </div>
+</section>
