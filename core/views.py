@@ -47,6 +47,7 @@ def send_resend_email(*, subject, text_body, html_body, to_email, reply_to=None)
         headers={
             "Authorization": f"Bearer {settings.RESEND_API_KEY}",
             "Content-Type": "application/json",
+            "User-Agent": "TRAVESIA-ContactForm/1.0",
         },
         method="POST",
     )
