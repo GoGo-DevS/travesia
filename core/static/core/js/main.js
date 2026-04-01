@@ -20,6 +20,17 @@ document.addEventListener("DOMContentLoaded", () => {
     const canHover = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
     let lockedScrollY = 0;
 
+    const clearContactHashFromUrl = () => {
+        const isContactPage = window.location.pathname.replace(/\/+$/, "") === "/contacto";
+        if (!isContactPage || window.location.hash !== "#contacto" || !window.history.replaceState) {
+            return;
+        }
+
+        window.requestAnimationFrame(() => {
+            window.history.replaceState(null, "", `${window.location.pathname}${window.location.search}`);
+        });
+    };
+
     const lockPageScroll = () => {
         lockedScrollY = window.scrollY || window.pageYOffset || 0;
         root.classList.add("scroll-lock");
@@ -130,6 +141,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     updateHeaderState();
     updateActiveNav();
+    clearContactHashFromUrl();
     window.addEventListener("scroll", updateHeaderState, { passive: true });
 
     if (prefersReducedMotion) {
