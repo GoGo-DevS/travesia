@@ -1,6 +1,9 @@
+import json
+from urllib.error import HTTPError, URLError
+from urllib.request import Request, urlopen
+
+from django.conf import settings
 from django.contrib import messages
-from django.core.mail import get_connection
-from django.core.mail import EmailMultiAlternatives
 from django.core.validators import validate_email
 from django.core.exceptions import ValidationError
 from django.shortcuts import redirect, render
@@ -14,11 +17,49 @@ BASE_CONTEXT = {
     "whatsapp_text": "Hola, quiero cotizar un servicio de transporte para mi empresa.",
 }
 
+RESEND_API_URL = "https://api.resend.com/emails"
+
 
 def build_context(**extra):
     context = BASE_CONTEXT.copy()
     context.update(extra)
     return context
+
+
+def send_resend_email(*, subject, text_body, html_body, to_email, reply_to=None):
+    if not settings.RESEND_API_KEY or not settings.RESEND_FROM_EMAIL:
+        raise RuntimeError("Resend no está configurado. Faltan RESEND_API_KEY o RESEND_FROM_EMAIL.")
+
+    payload = {
+        "from": settings.RESEND_FROM_EMAIL,
+        "to": [to_email],
+        "subject": subject,
+        "text": text_body,
+        "html": html_body,
+    }
+
+    if reply_to:
+        payload["reply_to"] = reply_to
+
+    request = Request(
+        RESEND_API_URL,
+        data=json.dumps(payload).encode("utf-8"),
+        headers={
+            "Authorization": f"Bearer {settings.RESEND_API_KEY}",
+            "Content-Type": "application/json",
+        },
+        method="POST",
+    )
+
+    try:
+        with urlopen(request, timeout=settings.RESEND_TIMEOUT) as response:
+            response_body = response.read().decode("utf-8")
+            return json.loads(response_body) if response_body else {}
+    except HTTPError as exc:
+        details = exc.read().decode("utf-8", errors="replace")
+        raise RuntimeError(f"Resend HTTP {exc.code}: {details}") from exc
+    except URLError as exc:
+        raise RuntimeError(f"Resend network error: {exc.reason}") from exc
 
 
 VALID_SERVICES = {
@@ -405,36 +446,28 @@ def contact(request):
         )
 
         try:
-            connection = get_connection(fail_silently=False)
-            email_message = EmailMultiAlternatives(
+            internal_result = send_resend_email(
                 subject=email_subject,
-                body=email_body,
-                from_email=None,
-                to=["contacto@travesialogistica.cl"],
-                reply_to=[email],
-                connection=connection,
+                text_body=email_body,
+                html_body=email_html,
+                to_email=settings.CONTACT_TO_EMAIL,
+                reply_to=email,
             )
-            email_message.attach_alternative(email_html, "text/html")
-
-            client_email_message = EmailMultiAlternatives(
+            client_result = send_resend_email(
                 subject=client_email_subject,
-                body=client_email_body,
-                from_email=None,
-                to=[email],
-                reply_to=["contacto@travesialogistica.cl"],
-                connection=connection,
+                text_body=client_email_body,
+                html_body=client_email_html,
+                to_email=email,
+                reply_to=settings.CONTACT_TO_EMAIL,
             )
-            client_email_message.attach_alternative(client_email_html, "text/html")
-            total_sent = connection.send_messages([email_message, client_email_message]) or 0
-            email_sent = 1 if total_sent >= 1 else 0
-            client_email_sent = 1 if total_sent >= 2 else 0
-            print(f"[CONTACT FORM] total emails sent: {total_sent}")
+            print(f"[CONTACT FORM] resend internal result: {internal_result}")
+            print(f"[CONTACT FORM] resend client result: {client_result}")
         except Exception as exc:
             print(f"[CONTACT FORM ERROR] {exc!r}")
             messages.error(request, "No pudimos enviar tu solicitud en este momento. Intenta nuevamente.")
         else:
-            if email_sent < 1 or client_email_sent < 1:
-                print("[CONTACT FORM ERROR] One of the emails returned 0 emails sent.")
+            if not internal_result.get("id") or not client_result.get("id"):
+                print("[CONTACT FORM ERROR] Resend did not return ids for both emails.")
                 messages.error(request, "No pudimos enviar tu solicitud en este momento. Intenta nuevamente.")
             else:
                 messages.success(request, "Solicitud enviada. Revisaremos tu requerimiento y también enviamos una confirmación al correo ingresado.")
