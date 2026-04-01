@@ -1,4 +1,5 @@
 from django.contrib import messages
+from django.core.mail import get_connection
 from django.core.mail import EmailMultiAlternatives
 from django.core.validators import validate_email
 from django.core.exceptions import ValidationError
@@ -404,16 +405,16 @@ def contact(request):
         )
 
         try:
+            connection = get_connection(fail_silently=False)
             email_message = EmailMultiAlternatives(
                 subject=email_subject,
                 body=email_body,
                 from_email=None,
                 to=["contacto@travesialogistica.cl"],
                 reply_to=[email],
+                connection=connection,
             )
             email_message.attach_alternative(email_html, "text/html")
-            email_sent = email_message.send(fail_silently=False)
-            print(f"[CONTACT FORM] send_mail result: {email_sent}")
 
             client_email_message = EmailMultiAlternatives(
                 subject=client_email_subject,
@@ -421,10 +422,13 @@ def contact(request):
                 from_email=None,
                 to=[email],
                 reply_to=["contacto@travesialogistica.cl"],
+                connection=connection,
             )
             client_email_message.attach_alternative(client_email_html, "text/html")
-            client_email_sent = client_email_message.send(fail_silently=False)
-            print(f"[CONTACT FORM] client email result: {client_email_sent}")
+            total_sent = connection.send_messages([email_message, client_email_message]) or 0
+            email_sent = 1 if total_sent >= 1 else 0
+            client_email_sent = 1 if total_sent >= 2 else 0
+            print(f"[CONTACT FORM] total emails sent: {total_sent}")
         except Exception as exc:
             print(f"[CONTACT FORM ERROR] {exc!r}")
             messages.error(request, "No pudimos enviar tu solicitud en este momento. Intenta nuevamente.")
