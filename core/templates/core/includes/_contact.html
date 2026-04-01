@@ -51,7 +51,7 @@
                     </div>
                 </div>
 
-                <div class="form-row">
+                <div class="form-row form-row-full">
                     <div class="form-group">
                         <label for="servicio">Servicio</label>
                         <select id="servicio" name="servicio" class="{% if form_errors.servicio %}is-invalid{% endif %}" aria-invalid="{% if form_errors.servicio %}true{% else %}false{% endif %}" aria-describedby="servicio-error" required>
@@ -67,8 +67,6 @@
                         </select>
                         <small class="form-error" id="servicio-error" data-error-for="servicio">{{ form_errors.servicio|default:'' }}</small>
                     </div>
-
-                    <div class="form-group" aria-hidden="true"></div>
                 </div>
 
                 <div class="form-group">
