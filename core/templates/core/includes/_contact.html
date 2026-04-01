@@ -1,117 +1,100 @@
+{% load static %}
+
 <section class="section section-light reveal" id="contacto">
+    {% if messages %}
+        <div class="form-toast-stack" aria-live="polite" aria-atomic="true">
+            {% for message in messages %}
+                <div class="form-toast{% if 'error' in message.tags %} is-error{% endif %}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
     <div class="container contact-grid">
         <div class="contact-copy reveal">
             <span class="eyebrow">Formulario comercial</span>
             <h2>Solicita una evaluación preliminar de tu requerimiento.</h2>
             <p>
-                Este formulario abre un mensaje estructurado en WhatsApp con los datos clave de tu solicitud,
+                Este formulario envía los datos clave de tu solicitud al canal comercial,
                 lo que mejora la calidad del lead y acelera la respuesta comercial.
             </p>
-
-            <div class="contact-info-card contact-card reveal-card js-tilt">
-                <h3>Canal principal</h3>
-                <p>Atención comercial vía WhatsApp para consultas, evaluación inicial y coordinación de requerimientos.</p>
-                <ul class="contact-points">
-                    <li>Levantamiento rápido de carga y ruta</li>
-                    <li>Canal directo para clientes corporativos</li>
-                    <li>Enfoque en continuidad operacional</li>
-                </ul>
-                <a
-                    href="https://wa.me/{{ whatsapp_number }}?text={{ whatsapp_text|urlencode }}"
-                    class="text-link"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    Abrir WhatsApp
-                </a>
-            </div>
         </div>
 
-        <div class="contact-form-card reveal-card js-tilt">
-            <form id="leadForm" class="contact-form" data-whatsapp-number="{{ whatsapp_number }}" novalidate>
+        <div class="contact-form-card reveal-card">
+            <form id="leadForm" class="contact-form" method="POST" action="{% url 'core:contact' %}" novalidate data-focus-on-error="{% if focus_contact_form %}true{% else %}false{% endif %}">
+                {% csrf_token %}
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="name">Nombre</label>
-                        <input type="text" id="name" name="name" placeholder="Nombre y apellido" autocomplete="name" required>
-                        <small class="form-error" data-error-for="name"></small>
+                        <label for="nombre">Nombre</label>
+                        <input type="text" id="nombre" name="nombre" placeholder="Nombre y apellido" autocomplete="name" value="{{ form_values.nombre|default:'' }}" class="{% if form_errors.nombre %}is-invalid{% endif %}" aria-invalid="{% if form_errors.nombre %}true{% else %}false{% endif %}" aria-describedby="nombre-error" required maxlength="120">
+                        <small class="form-error" id="nombre-error" data-error-for="nombre">{{ form_errors.nombre|default:'' }}</small>
                     </div>
 
                     <div class="form-group">
-                        <label for="company">Empresa</label>
-                        <input type="text" id="company" name="company" placeholder="Nombre de la empresa" autocomplete="organization" required>
-                        <small class="form-error" data-error-for="company"></small>
+                        <label for="empresa">Empresa</label>
+                        <input type="text" id="empresa" name="empresa" placeholder="Nombre de la empresa" autocomplete="organization" value="{{ form_values.empresa|default:'' }}" class="{% if form_errors.empresa %}is-invalid{% endif %}" aria-invalid="{% if form_errors.empresa %}true{% else %}false{% endif %}" aria-describedby="empresa-error" required maxlength="120">
+                        <small class="form-error" id="empresa-error" data-error-for="empresa">{{ form_errors.empresa|default:'' }}</small>
                     </div>
                 </div>
 
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="phone">Teléfono</label>
-                        <input type="tel" id="phone" name="phone" placeholder="+56 9 1234 5678" inputmode="tel" autocomplete="tel" required>
-                        <small class="form-error" data-error-for="phone"></small>
+                        <label for="telefono">Teléfono</label>
+                        <input type="tel" id="telefono" name="telefono" placeholder="+56 9 1234 5678" inputmode="tel" autocomplete="tel" value="{{ form_values.telefono|default:'' }}" class="{% if form_errors.telefono %}is-invalid{% endif %}" aria-invalid="{% if form_errors.telefono %}true{% else %}false{% endif %}" aria-describedby="telefono-error" required maxlength="18">
+                        <small class="form-error" id="telefono-error" data-error-for="telefono">{{ form_errors.telefono|default:'' }}</small>
                     </div>
 
                     <div class="form-group">
                         <label for="email">Correo</label>
-                        <input type="email" id="email" name="email" placeholder="contacto@empresa.cl" autocomplete="email" required>
-                        <small class="form-error" data-error-for="email"></small>
+                        <input type="email" id="email" name="email" placeholder="contacto@empresa.cl" autocomplete="email" value="{{ form_values.email|default:'' }}" class="{% if form_errors.email %}is-invalid{% endif %}" aria-invalid="{% if form_errors.email %}true{% else %}false{% endif %}" aria-describedby="email-error" required maxlength="160">
+                        <small class="form-error" id="email-error" data-error-for="email">{{ form_errors.email|default:'' }}</small>
                     </div>
                 </div>
 
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="service">Servicio</label>
-                        <select id="service" name="service" required>
+                        <label for="servicio">Servicio</label>
+                        <select id="servicio" name="servicio" class="{% if form_errors.servicio %}is-invalid{% endif %}" aria-invalid="{% if form_errors.servicio %}true{% else %}false{% endif %}" aria-describedby="servicio-error" required>
                             <option value="">Selecciona un servicio</option>
-                            <option>Transporte nacional e internacional</option>
-                            <option>Logística minera</option>
-                            <option>Asesoría en comercio exterior</option>
-                            <option>Cargas especiales</option>
-                            <option>Cargas refrigeradas</option>
-                            <option>Carga peligrosa</option>
-                            <option>Sobredimensión</option>
-                            <option>Proyecto logístico</option>
+                            <option {% if form_values.servicio == 'Transporte nacional e internacional' %}selected{% endif %}>Transporte nacional e internacional</option>
+                            <option {% if form_values.servicio == 'Logística minera' %}selected{% endif %}>Logística minera</option>
+                            <option {% if form_values.servicio == 'Asesoría en comercio exterior' %}selected{% endif %}>Asesoría en comercio exterior</option>
+                            <option {% if form_values.servicio == 'Cargas especiales' %}selected{% endif %}>Cargas especiales</option>
+                            <option {% if form_values.servicio == 'Cargas refrigeradas' %}selected{% endif %}>Cargas refrigeradas</option>
+                            <option {% if form_values.servicio == 'Carga peligrosa' %}selected{% endif %}>Carga peligrosa</option>
+                            <option {% if form_values.servicio == 'Sobredimensión' %}selected{% endif %}>Sobredimensión</option>
+                            <option {% if form_values.servicio == 'Proyecto logístico' %}selected{% endif %}>Proyecto logístico</option>
                         </select>
-                        <small class="form-error" data-error-for="service"></small>
+                        <small class="form-error" id="servicio-error" data-error-for="servicio">{{ form_errors.servicio|default:'' }}</small>
                     </div>
 
-                    <div class="form-group">
-                        <label for="route">Ruta o tramo</label>
-                        <input
-                            type="text"
-                            id="route"
-                            name="route"
-                            list="routeSuggestions"
-                            placeholder="Selecciona o escribe una ruta"
-                            autocomplete="off"
-                            inputmode="text"
-                            required
-                        >
-                        <datalist id="routeSuggestions">
-                            <option value="Santiago - Antofagasta"></option>
-                            <option value="Santiago - Iquique"></option>
-                            <option value="Santiago - Concepción"></option>
-                            <option value="Santiago - Puerto Montt"></option>
-                            <option value="Antofagasta - Calama"></option>
-                            <option value="Antofagasta - Mejillones"></option>
-                            <option value="Calama - Faena minera"></option>
-                            <option value="Puerto - Bodega"></option>
-                            <option value="Bodega - Faena"></option>
-                            <option value="Origen por definir - Destino por definir"></option>
-                        </datalist>
-                        <small class="form-error" data-error-for="route"></small>
-                    </div>
+                    <div class="form-group" aria-hidden="true"></div>
                 </div>
 
                 <div class="form-group">
-                    <label for="message">Detalle del requerimiento</label>
-                    <textarea id="message" name="message" rows="6" placeholder="Tipo de carga, urgencia, restricciones, volumen o cualquier dato relevante" required></textarea>
-                    <small class="form-error" data-error-for="message"></small>
+                    <label for="mensaje">Detalle del requerimiento</label>
+                    <textarea id="mensaje" name="mensaje" rows="6" placeholder="Tipo de carga, urgencia, restricciones, volumen o cualquier dato relevante" class="{% if form_errors.mensaje %}is-invalid{% endif %}" aria-invalid="{% if form_errors.mensaje %}true{% else %}false{% endif %}" aria-describedby="mensaje-error" required maxlength="2000">{{ form_values.mensaje|default:'' }}</textarea>
+                    <small class="form-error" id="mensaje-error" data-error-for="mensaje">{{ form_errors.mensaje|default:'' }}</small>
                 </div>
 
                 <button type="submit" class="btn btn-primary btn-full">Enviar solicitud</button>
-                <p class="form-note">Al enviar, se abrirá WhatsApp con el mensaje prellenado.</p>
-                <p class="form-status" id="formStatus" aria-live="polite"></p>
+                <p class="form-note">Al enviar, tu solicitud será procesada por el canal comercial.</p>
             </form>
+        </div>
+
+        <div class="contact-info-card contact-route-card reveal-card js-tilt">
+            <img
+                src="{% static 'core/img/pages/contacto/contacto-ruta-estrategica-travesia.png' %}"
+                alt="Ruta cordillerana de alta montaña operada por TRAVESÍA"
+                class="contact-route-card-image"
+            >
+            <div class="contact-route-card-overlay">
+                <span class="contact-route-card-kicker">Ruta estratégica</span>
+                <h3>Coordinación en tramos de alta complejidad.</h3>
+                <p>
+                    Operamos rutas exigentes con foco en continuidad, seguridad y lectura operativa del terreno.
+                </p>
+            </div>
         </div>
     </div>
 </section>
