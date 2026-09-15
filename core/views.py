@@ -523,6 +523,7 @@ def arriendo(request):
         equipos=catalogo.equipos_de(),
         categoria_activa=categoria_slug,
         total_equipos=len(catalogo.EQUIPOS),
+        operadores=catalogo.OPERADORES,
         whatsapp_text="Hola, quiero cotizar el arriendo de un equipo.",
     ))
 
@@ -530,6 +531,9 @@ def arriendo(request):
 def arriendo_equipo(request, slug):
     equipo = catalogo.equipo(slug)
     if equipo is None:
+        nuevo = catalogo.SLUGS_ANTERIORES.get(slug)
+        if nuevo:
+            return redirect("core:arriendo_equipo", slug=nuevo, permanent=True)
         raise Http404("Equipo no encontrado")
     categoria = catalogo.categoria(equipo["categoria"])
     whatsapp_text = f"Hola, quiero cotizar el arriendo de: {equipo['nombre']}."

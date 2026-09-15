@@ -8,12 +8,12 @@ from . import equipos as catalogo
 
 class CatalogoDeArriendo(TestCase):
 
-    def test_el_catalogo_lista_los_nueve_equipos(self):
+    def test_el_catalogo_lista_los_diez_equipos(self):
         respuesta = self.client.get(reverse("core:arriendo"))
         self.assertEqual(respuesta.status_code, 200)
         for e in catalogo.EQUIPOS:
             self.assertContains(respuesta, e["nombre"])
-        self.assertEqual(len(catalogo.EQUIPOS), 9)
+        self.assertEqual(len(catalogo.EQUIPOS), 10)
 
     def test_filtrar_por_categoria_esconde_las_otras_sin_javascript(self):
         html = self.client.get(reverse("core:arriendo") + "?categoria=movimiento-de-tierra").content.decode()
@@ -37,6 +37,27 @@ class CatalogoDeArriendo(TestCase):
     def test_un_equipo_que_no_existe_da_404(self):
         respuesta = self.client.get(reverse("core:arriendo_equipo", args=["tanque-de-guerra"]))
         self.assertEqual(respuesta.status_code, 404)
+
+    def test_el_slug_viejo_de_ramplas_redirige(self):
+        respuesta = self.client.get("/arriendo-de-equipos/ramplas/")
+        self.assertEqual(respuesta.status_code, 301)
+        self.assertTrue(respuesta["Location"].endswith("/arriendo-de-equipos/tracto-camion-con-rampla/"))
+
+    def test_las_fotos_declaradas_existen(self):
+        from django.contrib.staticfiles import finders
+        for e in catalogo.EQUIPOS:
+            if e["foto"]:
+                self.assertIsNotNone(finders.find(e["foto"]), e["slug"])
+
+    def test_la_ficha_muestra_capacidades_y_operador(self):
+        html = self.client.get(reverse("core:arriendo_equipo", args=["camion-aljibe"])).content.decode()
+        self.assertIn("20 m³", html)
+        self.assertIn("con o sin operador", html)
+
+    def test_el_catalogo_lista_los_operadores(self):
+        respuesta = self.client.get(reverse("core:arriendo"))
+        for o in catalogo.OPERADORES:
+            self.assertContains(respuesta, o)
 
     def test_el_menu_y_la_portada_llevan_al_catalogo(self):
         html = self.client.get(reverse("core:home")).content.decode()

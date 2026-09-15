@@ -29,13 +29,20 @@
                 <h1>{{ equipo.nombre }}</h1>
                 <p class="equipo-ficha-resumen">{{ equipo.resumen }}</p>
 
+                {% if equipo.detalle %}
+                <h2 class="equipo-ficha-subtitulo">Equipos disponibles</h2>
+                <ul class="equipo-usos equipo-detalle">
+                    {% for d in equipo.detalle %}<li>{{ d }}</li>{% endfor %}
+                </ul>
+                {% endif %}
+
                 <h2 class="equipo-ficha-subtitulo">Usos habituales</h2>
                 <ul class="equipo-usos">
                     {% for uso in equipo.usos %}<li>{{ uso }}</li>{% endfor %}
                 </ul>
 
                 <p class="equipo-ficha-nota">
-                    Configuración, disponibilidad y condiciones del arriendo se confirman en la cotización.
+                    Se arrienda <strong>con o sin operador</strong>. Configuración, disponibilidad y condiciones se confirman en la cotización.
                 </p>
 
                 <div class="equipo-ficha-actions">
