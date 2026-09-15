@@ -105,7 +105,7 @@ EQUIPOS = [
             "Movimientos de tierra de mediana escala",
         ],
         "detalle": ["Caterpillar", "JCB"],
-        "foto": None,
+        "foto": "core/img/equipos/retroexcavadora.webp",
     },
     {
         "slug": "excavadora",
@@ -119,7 +119,7 @@ EQUIPOS = [
             "Carguío de camiones tolva",
         ],
         "detalle": ["Volvo EC210", "Komatsu PC210"],
-        "foto": None,
+        "foto": "core/img/equipos/excavadora.webp",
     },
     {
         "slug": "tracto-camion-con-rampla",
@@ -147,7 +147,7 @@ EQUIPOS = [
             "Movilización de equipos entre faenas",
         ],
         "detalle": ["Capacidad de 50 toneladas"],
-        "foto": None,
+        "foto": "core/img/equipos/camas-bajas.webp",
     },
     {
         "slug": "camion-pluma",
@@ -161,7 +161,7 @@ EQUIPOS = [
             "Movimiento de equipos dentro de la faena",
         ],
         "detalle": ["Volvo 500 con pluma PM 100", "MAN TGS 35.440 con pluma PM 57,5 Px"],
-        "foto": None,
+        "foto": "core/img/equipos/camion-pluma.webp",
     },
 ]
 
