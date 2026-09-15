@@ -283,6 +283,11 @@ document.addEventListener("DOMContentLoaded", () => {
                 element: leadForm.querySelector('[name="mensaje"]'),
                 validate(value) {
                     const normalized = value.trim();
+                    // En la cotizacion de arriendo el comentario es opcional
+                    // (el textarea no lleva `required`): no se exige nada.
+                    if (!this.element.required) {
+                        return "";
+                    }
                     if (!normalized) {
                         return "Describe tu requerimiento.";
                     }

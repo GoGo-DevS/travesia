@@ -1,0 +1,16 @@
+{% comment %}
+  Franja que lleva al catálogo de arriendo desde la portada y desde servicios.
+  Sin esto la sección nueva solo se encuentra por el menú.
+{% endcomment %}
+<section class="section section-light reveal arriendo-band-section">
+    <div class="container arriendo-band js-tilt">
+        <div class="arriendo-band-copy">
+            <span class="eyebrow">Nuevo · Arriendo de equipos</span>
+            <h2>¿Necesitas equipos para tu faena u obra?</h2>
+            <p>Camionetas, camiones 3/4, camión de combustible, aljibes, tolvas, retroexcavadora, excavadora, ramplas y camas bajas.</p>
+        </div>
+        <div class="arriendo-band-actions">
+            <a href="{% url 'core:arriendo' %}" class="btn btn-primary">Ver catálogo de arriendo</a>
+        </div>
+    </div>
+</section>

@@ -6,9 +6,12 @@ from django.conf import settings
 from django.contrib import messages
 from django.core.validators import validate_email
 from django.core.exceptions import ValidationError
+from django.http import Http404
 from django.shortcuts import redirect, render
 from django.urls import reverse
 from django.utils.html import escape
+
+from . import equipos as catalogo
 
 
 BASE_CONTEXT = {
@@ -483,3 +486,118 @@ def contact(request):
             form_errors={},
         ),
     )
+
+
+# ---------------------------------------------------------------------------
+# Arriendo de equipos
+# ---------------------------------------------------------------------------
+
+def validate_arriendo_payload(raw_data):
+    """Mismas reglas que el formulario comercial, mas equipo, periodo y ubicacion."""
+    # Nombre, empresa, telefono y correo se validan igual que en el formulario
+    # comercial. "Servicio" no existe aca y el comentario es opcional: esos dos
+    # errores no aplican.
+    values, errors = validate_contact_payload(raw_data)
+    errors.pop("mensaje", None)
+    errors.pop("servicio", None)
+
+    values["equipo"] = raw_data.get("equipo", "").strip()
+    values["periodo"] = raw_data.get("periodo", "").strip()
+    values["ubicacion"] = raw_data.get("ubicacion", "").strip()
+
+    if not catalogo.equipo(values["equipo"]):
+        errors["equipo"] = "Selecciona un equipo del catálogo."
+    if values["periodo"] not in catalogo.PERIODOS:
+        errors["periodo"] = "Selecciona por cuánto tiempo lo necesitas."
+    if len(values["ubicacion"]) < 3:
+        errors["ubicacion"] = "Indica la comuna, ciudad o faena donde se usará."
+    return values, errors
+
+
+def arriendo(request):
+    categoria_slug = request.GET.get("categoria", "")
+    if categoria_slug and not catalogo.categoria(categoria_slug):
+        categoria_slug = ""
+    return render(request, "core/arriendo.html", build_context(
+        categorias=catalogo.categorias_con_cuenta(),
+        equipos=catalogo.equipos_de(),
+        categoria_activa=categoria_slug,
+        total_equipos=len(catalogo.EQUIPOS),
+        whatsapp_text="Hola, quiero cotizar el arriendo de un equipo.",
+    ))
+
+
+def arriendo_equipo(request, slug):
+    equipo = catalogo.equipo(slug)
+    if equipo is None:
+        raise Http404("Equipo no encontrado")
+    categoria = catalogo.categoria(equipo["categoria"])
+    whatsapp_text = f"Hola, quiero cotizar el arriendo de: {equipo['nombre']}."
+    form_values = {"equipo": equipo["slug"]}
+    form_errors = {}
+
+    if request.method == "POST":
+        form_values, form_errors = validate_arriendo_payload(request.POST)
+        if not form_errors:
+            elegido = catalogo.equipo(form_values["equipo"])
+            detalle = "\n".join([
+                f"Equipo: {elegido['nombre']}",
+                f"Periodo: {form_values['periodo']}",
+                f"Ubicación / faena: {form_values['ubicacion']}",
+                "",
+                form_values["mensaje"] or "(sin comentarios adicionales)",
+            ])
+            servicio = f"Arriendo de equipos · {elegido['nombre']}"
+            asunto = f"Cotización de arriendo TRAVESÍA - {elegido['nombre']} - {form_values['empresa']}"
+            try:
+                interno = send_resend_email(
+                    subject=asunto,
+                    text_body=f"Nueva cotización de arriendo.\n\nNombre: {form_values['nombre']}\n"
+                              f"Correo: {form_values['email']}\nTeléfono: {form_values['telefono']}\n"
+                              f"Empresa: {form_values['empresa']}\n\n{detalle}",
+                    html_body=build_contact_email_html(
+                        company_name=BASE_CONTEXT["company_name"], subject=asunto,
+                        nombre=form_values["nombre"], email=form_values["email"],
+                        telefono=form_values["telefono"], empresa=form_values["empresa"],
+                        servicio=servicio, mensaje=detalle),
+                    to_email=settings.CONTACT_TO_EMAIL,
+                    reply_to=form_values["email"],
+                )
+                cliente = send_resend_email(
+                    subject="Recibimos tu solicitud de arriendo | TRAVESÍA",
+                    text_body=f"Hola {form_values['nombre']},\n\nRecibimos tu solicitud de arriendo y te "
+                              f"responderemos a la brevedad con la cotización.\n\n{detalle}\n\nTRAVESÍA",
+                    html_body=build_client_confirmation_email_html(
+                        company_name=BASE_CONTEXT["company_name"], nombre=form_values["nombre"],
+                        empresa=form_values["empresa"], servicio=servicio, mensaje=detalle),
+                    to_email=form_values["email"],
+                    reply_to=settings.CONTACT_TO_EMAIL,
+                )
+            except Exception as exc:
+                print(f"[ARRIENDO FORM ERROR] {exc!r}")
+                messages.error(request, "No pudimos enviar tu solicitud en este momento. "
+                                        "Intenta nuevamente o escríbenos por WhatsApp.")
+            else:
+                if interno.get("id") and cliente.get("id"):
+                    messages.success(request, "Solicitud enviada. Te responderemos con la cotización "
+                                              "y enviamos una confirmación a tu correo.")
+                else:
+                    messages.error(request, "No pudimos enviar tu solicitud en este momento. "
+                                            "Intenta nuevamente o escríbenos por WhatsApp.")
+            return redirect(f"{reverse('core:arriendo_equipo', args=[equipo['slug']])}#cotizar")
+
+    relacionados = [e for e in catalogo.equipos_de(equipo["categoria"]) if e["slug"] != equipo["slug"]]
+    if len(relacionados) < 3:
+        relacionados += [e for e in catalogo.equipos_de()
+                         if e["categoria"] != equipo["categoria"]][: 3 - len(relacionados)]
+    return render(request, "core/arriendo_equipo.html", build_context(
+        equipo=equipo,
+        categoria=categoria,
+        equipos=catalogo.EQUIPOS,
+        periodos=catalogo.PERIODOS,
+        relacionados=relacionados,
+        form_values=form_values,
+        form_errors=form_errors,
+        focus_contact_form=bool(form_errors),
+        whatsapp_text=whatsapp_text,
+    ))

@@ -1,0 +1,162 @@
+{% extends "core/base.html" %}
+{% load static %}
+
+{% block title %}Arriendo de {{ equipo.nombre|lower }} | TRAVESÍA{% endblock %}
+{% block meta_description %}Arriendo de {{ equipo.nombre|lower }}: {{ equipo.resumen }} Cotiza con TRAVESÍA.{% endblock %}
+{% block og_title %}Arriendo de {{ equipo.nombre|lower }} | TRAVESÍA{% endblock %}
+{% block og_description %}{{ equipo.resumen }} Cotiza el arriendo con TRAVESÍA.{% endblock %}
+
+{% block content %}
+<section class="section section-light equipo-ficha-section">
+    <div class="container">
+        <nav class="equipo-migas" aria-label="Ruta">
+            <a href="{% url 'core:home' %}">Inicio</a> <span aria-hidden="true">/</span>
+            <a href="{% url 'core:arriendo' %}">Arriendo de equipos</a> <span aria-hidden="true">/</span>
+            <a href="{% url 'core:arriendo' %}?categoria={{ categoria.slug }}#catalogo">{{ categoria.nombre }}</a>
+        </nav>
+
+        <div class="equipo-ficha">
+            <div class="equipo-ficha-media reveal-card">
+                {% if equipo.foto %}
+                    <img src="{% static equipo.foto %}" alt="{{ equipo.nombre }}">
+                {% else %}
+                    {% include "core/includes/_pictograma.html" with tipo=equipo.pictograma nombre=equipo.nombre %}
+                {% endif %}
+            </div>
+
+            <div class="equipo-ficha-info">
+                <span class="eyebrow">{{ categoria.nombre }}</span>
+                <h1>{{ equipo.nombre }}</h1>
+                <p class="equipo-ficha-resumen">{{ equipo.resumen }}</p>
+
+                <h2 class="equipo-ficha-subtitulo">Usos habituales</h2>
+                <ul class="equipo-usos">
+                    {% for uso in equipo.usos %}<li>{{ uso }}</li>{% endfor %}
+                </ul>
+
+                <p class="equipo-ficha-nota">
+                    Configuración, disponibilidad y condiciones del arriendo se confirman en la cotización.
+                </p>
+
+                <div class="equipo-ficha-actions">
+                    <a href="#cotizar" class="btn btn-primary">Cotizar este equipo</a>
+                    <a href="https://wa.me/{{ whatsapp_number }}?text={{ whatsapp_text|urlencode }}" class="btn btn-secondary equipo-btn-wsp" target="_blank" rel="noopener noreferrer">Cotizar por WhatsApp</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section section-light reveal" id="cotizar">
+    {% if messages %}
+        <div class="form-toast-stack" aria-live="polite" aria-atomic="true">
+            {% for message in messages %}
+                <div class="form-toast{% if 'error' in message.tags %} is-error{% endif %}">{{ message }}</div>
+            {% endfor %}
+        </div>
+    {% endif %}
+    <div class="container contact-grid">
+        <div class="contact-copy reveal">
+            <span class="eyebrow">Solicitud de arriendo</span>
+            <h2>Cotiza el arriendo de {{ equipo.nombre|lower }}.</h2>
+            <p>Indícanos por cuánto tiempo y dónde lo necesitas. Te respondemos con disponibilidad y condiciones.</p>
+        </div>
+
+        <div class="contact-form-card reveal-card">
+            <form id="leadForm" class="contact-form" method="POST" action="{% url 'core:arriendo_equipo' equipo.slug %}#cotizar" novalidate data-focus-on-error="{% if focus_contact_form %}true{% else %}false{% endif %}">
+                {% csrf_token %}
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="nombre">Nombre</label>
+                        <input type="text" id="nombre" name="nombre" placeholder="Nombre y apellido" autocomplete="name" value="{{ form_values.nombre|default:'' }}" class="{% if form_errors.nombre %}is-invalid{% endif %}" aria-invalid="{% if form_errors.nombre %}true{% else %}false{% endif %}" aria-describedby="nombre-error" required maxlength="120">
+                        <small class="form-error" id="nombre-error" data-error-for="nombre">{{ form_errors.nombre|default:'' }}</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="empresa">Empresa</label>
+                        <input type="text" id="empresa" name="empresa" placeholder="Nombre de la empresa" autocomplete="organization" value="{{ form_values.empresa|default:'' }}" class="{% if form_errors.empresa %}is-invalid{% endif %}" aria-invalid="{% if form_errors.empresa %}true{% else %}false{% endif %}" aria-describedby="empresa-error" required maxlength="120">
+                        <small class="form-error" id="empresa-error" data-error-for="empresa">{{ form_errors.empresa|default:'' }}</small>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="telefono">Teléfono</label>
+                        <input type="tel" id="telefono" name="telefono" placeholder="+56 9 1234 5678" inputmode="tel" autocomplete="tel" value="{{ form_values.telefono|default:'' }}" class="{% if form_errors.telefono %}is-invalid{% endif %}" aria-invalid="{% if form_errors.telefono %}true{% else %}false{% endif %}" aria-describedby="telefono-error" required maxlength="18">
+                        <small class="form-error" id="telefono-error" data-error-for="telefono">{{ form_errors.telefono|default:'' }}</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Correo</label>
+                        <input type="email" id="email" name="email" placeholder="contacto@empresa.cl" autocomplete="email" value="{{ form_values.email|default:'' }}" class="{% if form_errors.email %}is-invalid{% endif %}" aria-invalid="{% if form_errors.email %}true{% else %}false{% endif %}" aria-describedby="email-error" required maxlength="160">
+                        <small class="form-error" id="email-error" data-error-for="email">{{ form_errors.email|default:'' }}</small>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="equipo">Equipo</label>
+                        <select id="equipo" name="equipo" class="{% if form_errors.equipo %}is-invalid{% endif %}" aria-describedby="equipo-error" required>
+                            {% for e in equipos %}
+                                <option value="{{ e.slug }}" {% if form_values.equipo == e.slug %}selected{% endif %}>{{ e.nombre }}</option>
+                            {% endfor %}
+                        </select>
+                        <small class="form-error" id="equipo-error" data-error-for="equipo">{{ form_errors.equipo|default:'' }}</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="periodo">Periodo de arriendo</label>
+                        <select id="periodo" name="periodo" class="{% if form_errors.periodo %}is-invalid{% endif %}" aria-describedby="periodo-error" required>
+                            <option value="">Selecciona un periodo</option>
+                            {% for p in periodos %}
+                                <option {% if form_values.periodo == p %}selected{% endif %}>{{ p }}</option>
+                            {% endfor %}
+                        </select>
+                        <small class="form-error" id="periodo-error" data-error-for="periodo">{{ form_errors.periodo|default:'' }}</small>
+                    </div>
+                </div>
+
+                <div class="form-row form-row-full">
+                    <div class="form-group">
+                        <label for="ubicacion">Ubicación o faena</label>
+                        <input type="text" id="ubicacion" name="ubicacion" placeholder="Comuna, ciudad o nombre de la faena" value="{{ form_values.ubicacion|default:'' }}" class="{% if form_errors.ubicacion %}is-invalid{% endif %}" aria-describedby="ubicacion-error" required maxlength="160">
+                        <small class="form-error" id="ubicacion-error" data-error-for="ubicacion">{{ form_errors.ubicacion|default:'' }}</small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="mensaje">Comentarios (opcional)</label>
+                    <textarea id="mensaje" name="mensaje" rows="4" placeholder="Fecha estimada de inicio, cantidad de equipos o cualquier detalle de la operación" maxlength="2000">{{ form_values.mensaje|default:'' }}</textarea>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-full">Solicitar cotización</button>
+                <p class="form-note">Te enviaremos una confirmación al correo ingresado.</p>
+            </form>
+        </div>
+    </div>
+</section>
+
+{% if relacionados %}
+<section class="section section-light reveal">
+    <div class="container">
+        <span class="eyebrow">También disponible</span>
+        <h2 class="equipo-relacionados-titulo">Otros equipos para tu operación</h2>
+        <div class="catalogo-grid">
+            {% for e in relacionados %}
+                <article class="equipo-card reveal-card">
+                    <a href="{% url 'core:arriendo_equipo' e.slug %}" class="equipo-card-media" aria-label="Ver ficha de {{ e.nombre }}">
+                        {% if e.foto %}<img src="{% static e.foto %}" alt="{{ e.nombre }}" loading="lazy">
+                        {% else %}{% include "core/includes/_pictograma.html" with tipo=e.pictograma nombre=e.nombre %}{% endif %}
+                    </a>
+                    <div class="equipo-card-body">
+                        <span class="service-meta">{{ e.categoria_nombre }}</span>
+                        <h3><a href="{% url 'core:arriendo_equipo' e.slug %}">{{ e.nombre }}</a></h3>
+                        <p>{{ e.resumen }}</p>
+                        <div class="equipo-card-actions">
+                            <a href="{% url 'core:arriendo_equipo' e.slug %}" class="equipo-card-link">Ver ficha</a>
+                        </div>
+                    </div>
+                </article>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+{% endblock %}

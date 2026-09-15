@@ -2433,3 +2433,337 @@ ul {
         transform: none !important;
     }
 }
+
+/* ==========================================================================
+   Arriendo de equipos (09-2026)
+   ========================================================================== */
+.catalogo-cabecera {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 24px;
+    margin-bottom: 22px;
+}
+
+.catalogo-cabecera h2 {
+    margin: 10px 0 8px;
+}
+
+.catalogo-cabecera p {
+    color: var(--ink-soft);
+    max-width: 640px;
+}
+
+.catalogo-filtros {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 26px;
+    overflow-x: auto;
+    padding-bottom: 6px;
+    scrollbar-width: thin;
+}
+
+.catalogo-filtro {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+    min-height: 42px;
+    padding: 0 16px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: var(--surface);
+    color: var(--ink);
+    font-weight: 700;
+    font-size: 0.9rem;
+    text-decoration: none;
+    transition: border-color var(--transition-fast), background var(--transition-fast), color var(--transition-fast);
+}
+
+.catalogo-filtro span {
+    display: inline-grid;
+    place-items: center;
+    min-width: 24px;
+    height: 24px;
+    padding: 0 6px;
+    border-radius: 999px;
+    background: var(--surface-2);
+    color: var(--brand);
+    font-size: 0.78rem;
+}
+
+.catalogo-filtro:hover {
+    border-color: var(--brand-2);
+}
+
+.catalogo-filtro.is-active {
+    background: var(--brand);
+    border-color: var(--brand);
+    color: var(--white);
+}
+
+.catalogo-filtro.is-active span {
+    background: var(--accent);
+    color: var(--white);
+}
+
+.catalogo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+    gap: 20px;
+}
+
+.catalogo-vacio {
+    color: var(--ink-soft);
+    margin-top: 12px;
+}
+
+.equipo-card {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    background: var(--surface);
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+    transition: box-shadow var(--transition-base), transform var(--transition-base);
+}
+
+.equipo-card[hidden] {
+    display: none;
+}
+
+.equipo-card:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+}
+
+.equipo-card-media {
+    display: grid;
+    place-items: center;
+    aspect-ratio: 16 / 10;
+    background: linear-gradient(135deg, var(--surface-2) 0%, var(--surface-3) 100%);
+    color: var(--brand);
+    border-bottom: 3px solid var(--accent);
+}
+
+.equipo-card-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.equipo-pictograma {
+    width: 62%;
+    max-width: 220px;
+    height: auto;
+}
+
+.equipo-card-body {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 20px 20px 22px;
+    flex: 1;
+}
+
+.equipo-card-body h3 {
+    font-size: 1.4rem;
+    margin: 0;
+}
+
+.equipo-card-body h3 a {
+    color: var(--ink);
+    text-decoration: none;
+}
+
+.equipo-card-body p {
+    color: var(--ink-soft);
+    font-size: 0.95rem;
+    line-height: 1.55;
+    flex: 1;
+}
+
+.equipo-card-actions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-top: 6px;
+}
+
+.equipo-card-link {
+    color: var(--brand-2);
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.equipo-card-link:hover {
+    text-decoration: underline;
+}
+
+/* Ficha del equipo */
+.equipo-ficha-section {
+    padding-top: calc(var(--header-height) + 56px);
+}
+
+.equipo-migas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 22px;
+    font-size: 0.9rem;
+    color: var(--ink-soft);
+}
+
+.equipo-migas a {
+    color: var(--brand-2);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.equipo-ficha {
+    display: grid;
+    gap: 32px;
+    align-items: center;
+}
+
+.equipo-ficha-media {
+    display: grid;
+    place-items: center;
+    aspect-ratio: 4 / 3;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-xl);
+    background: linear-gradient(135deg, var(--surface-2) 0%, var(--surface-3) 100%);
+    color: var(--brand);
+    box-shadow: var(--shadow-md);
+    overflow: hidden;
+}
+
+.equipo-ficha-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.equipo-ficha-media .equipo-pictograma {
+    width: 70%;
+    max-width: 380px;
+}
+
+.equipo-ficha-info h1 {
+    margin: 10px 0 12px;
+    color: var(--ink);
+}
+
+.equipo-ficha-resumen {
+    font-size: 1.1rem;
+    color: var(--ink-soft);
+    line-height: 1.6;
+}
+
+.equipo-ficha-subtitulo {
+    font-size: 1.1rem;
+    margin: 24px 0 10px;
+}
+
+.equipo-usos {
+    display: grid;
+    gap: 10px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.equipo-usos li {
+    position: relative;
+    padding-left: 26px;
+    color: var(--ink);
+}
+
+.equipo-usos li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.55em;
+    width: 12px;
+    height: 12px;
+    border-radius: 3px;
+    background: var(--accent);
+}
+
+.equipo-ficha-nota {
+    margin-top: 22px;
+    padding: 14px 16px;
+    border-radius: var(--radius-sm);
+    background: #fff7ee;
+    border: 1px solid rgba(245, 130, 32, 0.22);
+    color: #7a5a2d;
+    font-size: 0.92rem;
+}
+
+.equipo-ficha-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 22px;
+}
+
+.equipo-relacionados-titulo {
+    margin: 10px 0 24px;
+}
+
+@media (min-width: 900px) {
+    .equipo-ficha {
+        grid-template-columns: 1.05fr 1fr;
+        gap: 48px;
+    }
+}
+
+@media (max-width: 767px) {
+    .catalogo-cabecera {
+        display: block;
+    }
+
+    .equipo-ficha-section {
+        padding-top: calc(var(--header-height) + 28px);
+    }
+
+    .equipo-ficha-actions .btn {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+/* Franja de arriendo en portada y servicios */
+.arriendo-band {
+    display: grid;
+    gap: 20px;
+    align-items: center;
+    padding: 30px 28px;
+    border-radius: var(--radius-xl);
+    background: linear-gradient(135deg, var(--brand) 0%, var(--brand-deep) 100%);
+    color: var(--white);
+    box-shadow: var(--shadow-lg);
+    border-bottom: 4px solid var(--accent);
+}
+
+.arriendo-band .eyebrow {
+    color: #f7b267;
+}
+
+.arriendo-band h2 {
+    color: var(--white);
+    margin: 10px 0 8px;
+}
+
+.arriendo-band p {
+    color: rgba(255, 255, 255, 0.82);
+    max-width: 640px;
+}
+
+@media (min-width: 900px) {
+    .arriendo-band {
+        grid-template-columns: 1fr auto;
+        padding: 38px 42px;
+    }
+}

@@ -1,0 +1,35 @@
+{% comment %}
+  Pictograma del equipo mientras no haya foto real. Trazo simple con los
+  colores de la marca: dice QUÉ equipo es sin fingir que es una foto suya.
+{% endcomment %}
+<svg class="equipo-pictograma" viewBox="0 0 160 96" role="img" aria-label="{{ nombre }}" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round">
+  {% if tipo == "camioneta" %}
+    <path d="M18 62h124v-12l-16-4-14-16H70l-12 16H26l-8 6z"/><path d="M74 34h26l10 12H66z"/>
+    <circle cx="46" cy="66" r="10"/><circle cx="116" cy="66" r="10"/>
+  {% elif tipo == "camion" %}
+    <path d="M14 62V26h78v36"/><path d="M92 38h26l18 16v8H92"/><path d="M104 42v12h24"/>
+    <circle cx="38" cy="66" r="10"/><circle cx="112" cy="66" r="10"/><path d="M14 62h14M48 62h54M122 62h14"/>
+  {% elif tipo == "cisterna" %}
+    <rect x="14" y="30" width="80" height="28" rx="14"/><path d="M34 30v-6h40v6"/>
+    <path d="M94 38h24l18 14v10H94"/><path d="M104 42v10h22"/>
+    <circle cx="38" cy="66" r="10"/><circle cx="112" cy="66" r="10"/><path d="M14 62h14M48 62h54M122 62h14"/>
+  {% elif tipo == "tolva" %}
+    <path d="M12 30h82l-8 30H18z"/><path d="M94 38h24l18 14v10H94"/><path d="M104 42v10h22"/>
+    <circle cx="38" cy="66" r="10"/><circle cx="112" cy="66" r="10"/><path d="M48 62h54M122 62h14"/>
+  {% elif tipo == "retroexcavadora" %}
+    <path d="M58 60V36h30l10 14h18v10"/><path d="M66 36V24h20v12"/><path d="M116 50l22-16 6 18-12 4"/>
+    <path d="M58 46L30 30 16 48l10 6"/><circle cx="70" cy="68" r="10"/><circle cx="112" cy="68" r="7"/>
+  {% elif tipo == "excavadora" %}
+    <rect x="50" y="56" width="74" height="16" rx="8"/><path d="M60 56V36h40v20"/><path d="M76 36V24h24v12"/>
+    <path d="M60 42L34 22 16 44l14 8"/><path d="M16 44l-2 12 16-4"/>
+  {% elif tipo == "rampla" %}
+    <path d="M10 52h96v10H10z"/><path d="M106 40h22l16 12v10h-38z"/><path d="M114 44v8h18"/>
+    <rect x="18" y="30" width="70" height="22" rx="2"/>
+    <circle cx="28" cy="68" r="7"/><circle cx="46" cy="68" r="7"/><circle cx="124" cy="68" r="7"/>
+  {% elif tipo == "cama-baja" %}
+    <path d="M8 56l14-10h70l12 10h4v8H8z"/><path d="M108 42h20l16 12v10h-36z"/><path d="M116 46v8h18"/>
+    <path d="M36 46V34h30l8 12"/>
+    <circle cx="22" cy="68" r="6"/><circle cx="38" cy="68" r="6"/><circle cx="126" cy="68" r="7"/>
+  {% endif %}
+  <path d="M6 84h148" stroke-width="2" opacity=".35"/>
+</svg>
