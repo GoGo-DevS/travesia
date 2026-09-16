@@ -9,6 +9,8 @@ Lo que se publica y lo que NO:
   Nada inventado: un dato técnico falso termina en una cotización mal hecha.
 - `foto` solo con fotos de SUS equipos. Las de catálogo de fábrica o renders
   que venían en el lote NO se usan. Sin foto se muestra el pictograma.
+- Las patentes y el logo CBSK (un CLIENTE de Michael) van PIXELADOS, a pedido
+  suyo del 15-09. Si se reemplaza una foto, hay que volver a taparlos.
 
 Para agregar la foto de un equipo: dejar el archivo en
 core/static/core/img/equipos/ y poner su ruta en `foto`.
@@ -35,7 +37,7 @@ EQUIPOS = [
             "Recorridos de inspección en terreno",
         ],
         "detalle": [],
-        "foto": None,
+        "foto": "core/img/equipos/camionetas.webp",
     },
     {
         "slug": "camiones-3-4",
