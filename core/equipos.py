@@ -11,6 +11,8 @@ Lo que se publica y lo que NO:
   que venían en el lote NO se usan. Sin foto se muestra el pictograma.
 - Las patentes y el logo CBSK (un CLIENTE de Michael) van PIXELADOS, a pedido
   suyo del 15-09. Si se reemplaza una foto, hay que volver a taparlos.
+- Excepcion pedida por Michael (21-09-2026): la foto del camion tolva es un
+  IVECO rojo que NO es suyo; la eligio el. No tiene patente ni logos a tapar.
 
 Para agregar la foto de un equipo: dejar el archivo en
 core/static/core/img/equipos/ y poner su ruta en `foto`.
