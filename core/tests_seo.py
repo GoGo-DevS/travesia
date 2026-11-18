@@ -150,3 +150,14 @@ class TitulosYDescripciones(TestCase):
             titulos.setdefault(titulo(html), []).append(loc)
         repetidos = {t: u for t, u in titulos.items() if len(u) > 1}
         self.assertEqual(repetidos, {})
+
+
+class VerificacionSearchConsole(TestCase):
+
+    def test_el_archivo_de_google_responde_con_su_contenido_exacto(self):
+        respuesta = self.client.get("/google7385daff3a5a9bec.html")
+        self.assertEqual(respuesta.status_code, 200)
+        self.assertEqual(respuesta.content.decode(), "google-site-verification: google7385daff3a5a9bec.html")
+
+    def test_el_archivo_no_entra_al_sitemap(self):
+        self.assertFalse(any("google" in u for u in urls_del_sitemap()))

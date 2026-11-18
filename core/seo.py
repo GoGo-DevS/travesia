@@ -44,3 +44,16 @@ def robots_txt(request):
         f"Sitemap: {settings.SITE_URL}/sitemap.xml\n",
         content_type="text/plain; charset=utf-8",
     )
+
+
+# Verificación de Search Console (propiedad de prefijo de URL https://travesialogistica.cl/, creada el 18-11-2026
+# desde la cuenta formal de SEO). Michael no tenía Search Console y el DNS es suyo, así que se verifica con el
+# archivo HTML. Google pide que NO se borre: si desaparece, la propiedad pierde la verificación.
+GOOGLE_VERIFICACION = "google7385daff3a5a9bec.html"
+
+
+def google_verificacion(request):
+    return HttpResponse(
+        f"google-site-verification: {GOOGLE_VERIFICACION}",
+        content_type="text/html; charset=utf-8",
+    )
