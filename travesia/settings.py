@@ -58,6 +58,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'core.context_processors.seo',
             ],
         },
     },
@@ -75,6 +76,10 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+# Dominio público del sitio. La canónica, og:url, el sitemap y robots.txt se arman con él,
+# nunca con el host de la petición (así travesia.onrender.com no compite con el dominio).
+SITE_URL = os.getenv("SITE_URL", "https://travesialogistica.cl").rstrip("/")
 
 CSRF_TRUSTED_ORIGINS = [
     "https://travesialogistica.cl",
